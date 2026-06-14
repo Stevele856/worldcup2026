@@ -15,7 +15,7 @@ func GetMatches(w http.ResponseWriter, r *http.Request) {
 		params["date"] = date
 	}
 
-	data, err := services.Fetch("/fixtures", params, 60*time.Second)
+	data, err := services.Fetch("/fixtures", params, 30*time.Minute)
 	if err != nil {
 		http.Error(w, `{"error": "failed to fetch matches"}`, http.StatusBadGateway)
 		return
@@ -33,7 +33,7 @@ func GetMatchDetail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data, err := services.Fetch("/fixtures", map[string]string{"id": id}, 30*time.Second)
+	data, err := services.Fetch("/fixtures", map[string]string{"id": id}, 10*time.Minute)
 	if err != nil {
 		http.Error(w, `{"error": "failed to fetch match detail"}`, http.StatusBadGateway)
 		return
@@ -45,7 +45,7 @@ func GetMatchDetail(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetLiveMatches(w http.ResponseWriter, r *http.Request) {
-	data, err := services.Fetch("/fixtures", map[string]string{"live": "all"}, 30*time.Second)
+	data, err := services.Fetch("/fixtures", map[string]string{"live": "all"}, 10*time.Minute)
 	if err != nil {
 		http.Error(w, `{"error": "failed to fetch live matches"}`, http.StatusBadGateway)
 		return
@@ -67,7 +67,7 @@ func GetMatchEvents(w http.ResponseWriter, r *http.Request) {
 		Events json.RawMessage `json:"events"`
 	}
 
-	data, err := services.Fetch("/fixtures/events", map[string]string{"fixture": id}, 30*time.Second)
+	data, err := services.Fetch("/fixtures/events", map[string]string{"fixture": id}, 10*time.Minute)
 	if err != nil {
 		http.Error(w, `{"error": "failed to fetch matche events"}`, http.StatusBadGateway)
 		return
