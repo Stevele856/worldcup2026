@@ -7,7 +7,7 @@ import (
 )
 
 func GetTopScorers(w http.ResponseWriter, r *http.Request) {
-	data, err := services.Fetch("/players/topscorers", map[string]string{}, 1*time.Hour)
+	data, err := services.Fetch("/competitions/WC/scorers", map[string]string{}, 1*time.Hour)
 	if err != nil {
 		http.Error(w, `{"error": "failed to fetch top scorers"}`, http.StatusBadGateway)
 		return
@@ -19,7 +19,7 @@ func GetTopScorers(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetTopAssists(w http.ResponseWriter, r *http.Request) {
-	data, err := services.Fetch("/players/topassists", map[string]string{}, 1*time.Hour)
+	data, err := services.Fetch("/competitions/WC/scorers", map[string]string{}, 1*time.Hour)
 
 	if err != nil {
 		http.Error(w, `{"error": "failed to fetch top assists"}`, http.StatusBadGateway)

@@ -11,8 +11,8 @@ import (
 	"github.com/go-chi/cors"
 )
 
-func main(){
-	r :=  chi.NewRouter()
+func main() {
+	r := chi.NewRouter()
 
 	// Middleware
 	r.Use(middleware.Logger)
@@ -31,7 +31,6 @@ func main(){
 		r.Get("/matches", handlers.GetMatches)
 		r.Get("/matches/live", handlers.GetLiveMatches)
 		r.Get("/matches/detail", handlers.GetMatchDetail)
-		r.Get("/matches/events", handlers.GetMatchEvents)
 		r.Get("/standings", handlers.GetStandings)
 		r.Get("/scorers", handlers.GetTopScorers)
 		r.Get("/assists", handlers.GetTopAssists)
@@ -39,12 +38,12 @@ func main(){
 
 	// Start server
 	port := os.Getenv("PORT")
-	if port == ""{
+	if port == "" {
 		port = "8080"
 	}
 
 	log.Println("Server running on port " + port)
-	if err := http.ListenAndServe(":"+port,r); err != nil {
+	if err := http.ListenAndServe(":"+port, r); err != nil {
 		log.Fatal(err)
 	}
 }

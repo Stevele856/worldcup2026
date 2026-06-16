@@ -1,7 +1,6 @@
 package services
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -10,17 +9,7 @@ import (
 	"worldcup2026/cache"
 )
 
-const (
-	baseURL = "https://v3.football.api-sports.io/"
-	league  = "1"
-	season  = "2026"
-)
-
-type APIResponse struct {
-	Response json.RawMessage `json:"response"`
-	Errors   json.RawMessage `json:"errors"`
-	Result   int             `json:"result"`
-}
+const baseURL = "https://api.football-data.org/v4"
 
 var apiCache = cache.New()
 
@@ -31,17 +20,13 @@ func Fetch(endpoint string, params map[string]string, ttl time.Duration) ([]byte
 	}
 
 	req, err := http.NewRequest("GET", baseURL+endpoint, nil)
-
 	if err != nil {
 		return nil, fmt.Errorf("faled to create request; %w", err)
 	}
 
-	req.Header.Set("x-apisports-key", os.Getenv("KEY"))
+	req.Header.Set("X-Auth-Token", os.Getenv("KEY"))
 
 	q := req.URL.Query()
-	q.Set("league", league)
-	q.Set("season", season)
-
 	// Loops through extra params
 	for k, v := range params {
 		q.Set(k, v)
@@ -49,9 +34,9 @@ func Fetch(endpoint string, params map[string]string, ttl time.Duration) ([]byte
 	req.URL.RawQuery = q.Encode()
 
 	// Timeout
-	client := http.Client{Timeout: 10 * time.Second}
-	resp, err := client.Do(req)
+	client := &http.Client{Timeout: 10 * time.Second}
 
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}

@@ -6,9 +6,8 @@ import (
 	"worldcup2026/services"
 )
 
-
-func GetStandings(w http.ResponseWriter, h *http.Request){
-	data, err := services.Fetch("/standings", map[string]string{}, 1*time.Hour)
+func GetStandings(w http.ResponseWriter, h *http.Request) {
+	data, err := services.Fetch("/competitions/WC/standings", map[string]string{}, 1*time.Hour)
 
 	if err != nil {
 		http.Error(w, `{"error": "failed to fetch standings"}`, http.StatusBadGateway)
