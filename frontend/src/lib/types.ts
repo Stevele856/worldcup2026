@@ -6,23 +6,21 @@ export type Team = {
 
 // standings
 export type StandingData = {
-    position: string;
-    team: Team;
-    playGames: number;
-    won: number;
-    draw: number;
-    lost: number;
-    points: number;
-    goalsFor: number;
-    goalsAgainst: number;
-    goalDifference: number;
+    group: string;
+    table: {
+        position: number;
+        team: Team;
+        playedGames: number;
+        won: number;
+        draw: number;
+        lost: number;
+        points: number;
+    }[];
 }
 
 export type StandingResponse = {
-    stage: string;
-    group: string;
-    table: StandingData[]
-}[]
+    standings: StandingData[]
+}
 
 // matches
 export type Match = {
@@ -40,7 +38,7 @@ export type Match = {
 }
 
 export type MatchesResponse = {
-    match: Match[]
+    matches: Match[]
 }
 
 // scorers
@@ -53,6 +51,7 @@ export type Scorer = {
     goals: number;
     assists: number | null;
     penalties: number | null;
+    playedMatches: number | null;
 }
 
 export type ScorersResponse = {
