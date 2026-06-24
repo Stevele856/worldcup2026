@@ -1,4 +1,5 @@
 import { getMatches } from "@/lib/api";
+import Link from "next/link";
 
 export default async function Home() {
   const data = await getMatches();
@@ -18,13 +19,15 @@ export default async function Home() {
               key={match.id}
               className="flex items-center justify-between rounded-lg border border-zinc-200 px-4 py-3"
             >
-              <span className="font-medium">
-                {match.homeTeam.name} vs {match.awayTeam.name}
-              </span>
+              <Link href={`/matches/${match.id}`} className="flex w-full items-center justify-between">
+                <span className="font-medium">
+                  {match.homeTeam.name} vs {match.awayTeam.name}
+                </span>
 
-              <span className="text-zinc-600">
-                {played ? `${home} - ${away}` : match.status}
-              </span>
+                <span className="text-zinc-600">
+                  {played ? `${home} - ${away}` : match.status}
+                </span>
+              </Link>
             </li>
           );
         })}

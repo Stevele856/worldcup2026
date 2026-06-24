@@ -1,4 +1,4 @@
-import { MatchesResponse, ScorersResponse, StandingResponse } from "./types"
+import { MatchesResponse, ScorersResponse, StandingResponse, Match } from "./types"
 
 const BASE = process.env.NEXT_PUBLIC_API_BASE_URL!
 
@@ -21,4 +21,8 @@ export function getStandings() {
 
 export function getScorers() {
     return getJSON<ScorersResponse>("/api/scorers")
+}
+
+export function getMatchDetail(id: string){
+    return getJSON<Match>(`/api/matches/detail?id=${id}`)
 }
