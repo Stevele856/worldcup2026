@@ -1,3 +1,5 @@
+import { MatchList } from "@/components/match-lists";
+import { TeamFlag } from "@/components/ui/team-flag";
 import { getMatches } from "@/lib/api";
 import Link from "next/link";
 
@@ -6,32 +8,21 @@ export default async function Home() {
 
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-10">
-      <h1 className="text-2xl font-bold">World Cup 2026</h1>
-      <p className="mt-1 text-zinc-600">Matches overview</p>
+        {/* Hero banner */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-500 via-sky-500 to-violet-600 px-8 py-14 text-center text-white shadow-lg">
+        {/* soft glow accents */}
+        <div className="pointer-events-none absolute -left-10 -top-10 size-40 rounded-full bg-white/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-12 -right-8 size-44 rounded-full bg-amber-300/30 blur-3xl" />
 
-      <ul className="mt-6 flex flex-col gap-3">
-        {data.matches.map((match) => {
-          const { home, away } = match.score.fullTime;
-          const played = home !== null && away !== null;
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">FIFA World Cup</p>
+        <h1 className="mt-2 text-6xl font-black tracking-tight drop-shadow-sm">2026 ⚽</h1>
+        <p className="mt-4 text-lg font-semibold text-white/95">🇺🇸 USA · 🇨🇦 Canada · 🇲🇽 Mexico</p>
+        <p className="mt-1 text-sm text-white/75">48 teams · 104 matches · one trophy 🏆</p>
+      </section>
 
-          return (
-            <li
-              key={match.id}
-              className="flex items-center justify-between rounded-lg border border-zinc-200 px-4 py-3"
-            >
-              <Link href={`/matches/${match.id}`} className="flex w-full items-center justify-between">
-                <span className="font-medium">
-                  {match.homeTeam.name} vs {match.awayTeam.name}
-                </span>
+      <h2 className="mt-10 text-2xl font-bold">Matches</h2>
 
-                <span className="text-zinc-600">
-                  {played ? `${home} - ${away}` : match.status}
-                </span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <MatchList matches={data.matches} />
     </main>
   );
 }

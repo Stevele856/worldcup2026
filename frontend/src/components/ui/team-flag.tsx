@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type Props = {
     crest: string;
     name: string;
@@ -10,10 +12,10 @@ export function TeamFlag({crest, name, className}: Props){
     return (
         <img
             src={crest}
-            alt="`${name} flag`"
+            alt={`${name} flag`}
             width={20}
             height={20}
-            className={`inline-block size-5 shrink-0 rounded-sm object-contain ${className ?? ""}`}
+            className={cn("inline-block size-5 shrink-0 rounded-sm object-contain", className)}
         />
     )
 }

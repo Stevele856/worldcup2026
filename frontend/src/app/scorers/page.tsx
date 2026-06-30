@@ -1,3 +1,4 @@
+import { TeamFlag } from "@/components/ui/team-flag";
 import { getScorers } from "@/lib/api";
 
 
@@ -26,8 +27,11 @@ export default async function ScorersPage() {
               <td className="truncate py-2 pr-2 font-medium">
                 {scorer.player.name}
               </td>
-              <td className="truncate py-2 pr02 text-zinc-600">
-                {scorer.team.name}
+              <td className="truncate py-2 pr-2 text-zinc-600">
+                <div className="flex item-center gap-2">
+                  <TeamFlag crest={scorer.team.crest} name={scorer.team.name}/>
+                  <span className="min-w-0 truncate">{scorer.team.name}</span>
+                </div>
               </td>
 
               <td className="py-2 pr-2">

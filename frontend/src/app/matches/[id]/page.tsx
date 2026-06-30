@@ -1,5 +1,6 @@
 //  match detail
 
+import { TeamFlag } from "@/components/ui/team-flag";
 import { getMatchDetail } from "@/lib/api";
 
 export default async function GetMatchDetail({params,}:{params: Promise<{id: string}>}) {
@@ -14,9 +15,15 @@ export default async function GetMatchDetail({params,}:{params: Promise<{id: str
             <p className="text-sm text-zinc-500">{match.status}</p>
 
             <div className="mt-4 flex items-center justify-center gap-6 text-2xl font-bold">
-                <span>{match.homeTeam.name}</span>
+                <span className="flex items-center gap-2">
+                    <TeamFlag crest={match.homeTeam.crest} name={match.homeTeam.name} className="size-7" />
+                    {match.homeTeam.name}
+                </span>
                 <span>{played ? `${home} - ${away}`: "vs"}</span>
-                <span>{match.awayTeam.name}</span>
+                  <span className="flex items-center gap-2">
+                    <TeamFlag crest={match.awayTeam.crest} name={match.awayTeam.name} className="size-7" />
+                    {match.awayTeam.name}
+                </span>
             </div>
 
             <p className="mt-4 text-center text-zinc-500">
