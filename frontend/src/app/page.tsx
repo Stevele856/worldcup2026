@@ -1,7 +1,5 @@
-import { MatchList } from "@/components/match-lists";
-import { TeamFlag } from "@/components/ui/team-flag";
+import { MatchList } from "@/components/ui/match-lists";
 import { getMatches } from "@/lib/api";
-import Link from "next/link";
 
 export default async function Home() {
   const data = await getMatches();
